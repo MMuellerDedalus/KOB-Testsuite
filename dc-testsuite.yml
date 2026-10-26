@@ -13,12 +13,23 @@ services:
       - "${KOB_WORKFLOW_UI_EXPOSE_PORT:-9020}:9020"
       - "${KOB_TIGER_ADMIN_EXPOSE_PORT:-9021}:9021"
       - "${KOB_TIGER_PROXY_EXPOSE_PORT:-443}:443"
+    networks:
+      default: {}
+      xds:
+        aliases:
+          - epa-as-1.ref.epa4all.de
+          - epa-as-2.ref.epa4all.de
     volumes:
       - ./tiger.yaml:/app/tiger.yaml:ro
       - ./kob.yaml:/app/kob.yaml:ro
       - ./settings.xml:/home/kobtest/.m2/settings.xml:ro
       - kob-testsuite-maven:/home/kobtest/.m2/repository/:rw
       - kob-testsuite-report:/app/report/:rw
+
+networks:
+  xds:
+    external: true
+    name: ${KOB_XDS_NETWORK:-local_u}
 
 volumes:
   kob-testsuite-maven:
