@@ -29,7 +29,7 @@ services:
 networks:
   xds:
     external: true
-    name: ${KOB_XDS_NETWORK:-local_u}
+    name: ${KOB_XDS_NETWORK:-local-kob_u}
 
 volumes:
   kob-testsuite-maven:
